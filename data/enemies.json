@@ -1,0 +1,46 @@
+{
+    "slime": {
+        "name": "Slime",
+        "max_hp": 100,
+        "rad": 14,
+        "spd": 100,
+        "atk": 20,
+        "aspd": 1.0,
+        "sprite": {
+            "file": "assets/slime.png",
+            "frame_size": [32, 32],
+            "scale": 2,
+            "side_faces": "right",
+            "animations": {
+                "idle": {
+                    "side": {"row": 0, "count": 4, "fps": 6}
+                },
+                "walk": {
+                    "side": {"row": 1, "count": 6, "fps": 8}
+                }
+            }
+        }
+    },
+    "orc": {
+        "name": "Orc",
+        "max_hp": 600,
+        "rad": 14,
+        "spd": 100,
+        "atk": 20,
+        "aspd": 1.0,
+        "sprite": {
+            "file": "assets/slime.png",
+            "frame_size": [32, 32],
+            "scale": 2,
+            "side_faces": "right",
+            "animations": {
+                "idle": {
+                    "side": {"row": 0, "count": 4, "fps": 6}
+                },
+                "walk": {
+                    "side": {"row": 1, "count": 6, "fps": 8}
+                }
+            }
+        }
+    }
+}

@@ -2,10 +2,10 @@
     "riela":{
         "name": "Riela",
         "max_hp": 200,
-        "radius": 16,
+        "rad": 16,
         "spd": 220,
         "atk": 40,
-        "atk_spd": 0.75,
+        "aspd": 0.75,
         "color": [109, 247, 200],
         "sprite": "assets/riela.png",
         "sprite_size": [48, 48]
@@ -13,10 +13,10 @@
     "test":{
         "name": "Test",
         "max_hp": 140,
-        "radius": 14,
+        "rad": 14,
         "spd": 280,
         "atk": 25,
-        "atk_spd": 0.4,
+        "aspd": 0.4,
         "color": [118, 180, 255],
         "sprite": {
             "file": "assets/test.png",
