@@ -1,7 +1,7 @@
 {
     "slime": {
         "name": "Slime",
-        "max_hp": 100,
+        "max_hp": 500,
         "rad": 14,
         "spd": 100,
         "atk": 20,

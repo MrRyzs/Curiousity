@@ -48,19 +48,33 @@ class Karakter:
         self.pos += arah * self.spd * timer
 
         # Logic Animasi, saat ini masih temporary
+        self.time_animasi += timer
+        
+        if self.nm_animasi == "attack":
+            animasi = self.animasi["attack"]["side"]
+            
+            dur = (len(animasi["frames"]) / animasi["fps"])
+
+            if self.time_animasi < dur:
+                return
+            
         kondisi = "walk" if moving else "idle"
 
         if kondisi != self.nm_animasi:
             self.nm_animasi = kondisi
             self.time_animasi = 0
 
-        self.time_animasi += timer
-
     def gambar(self, layar, cam):
         animasi = self.animasi[self.nm_animasi]["side"]
         list_frame = animasi["frames"]
 
-        index = (int(self.time_animasi * animasi["fps"]) % len(list_frame))
+        index = int(self.time_animasi * animasi["fps"]) 
+
+        if self.nm_animasi == "attack":
+            index=min(index, len(list_frame) - 1)
+        else:
+            index %= len(list_frame)
+
         gambar = list_frame[index]
         arah_kanan = (self.sprite.get("side_faces", "right") == "right")
         
@@ -79,3 +93,10 @@ class Karakter:
 
     def terserang(self, dmg):
         self.hp = max(0, self.hp - dmg)
+
+    def serang(self):
+        if self.hp <= 0:
+            return
+
+        self.nm_animasi = "attack"
+        self.time_animasi = 0

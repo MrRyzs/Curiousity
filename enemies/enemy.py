@@ -25,6 +25,9 @@ class Musuh:
         self.time_animasi = 0
 
     def update(self, timer, target):
+        if self.hp <= 0:
+            return
+
         # Ngejar Player
         sel = target.pos - self.pos
         jar = sel.length()
@@ -52,6 +55,9 @@ class Musuh:
         self.time_animasi += timer
 
     def gambar(self, layar, cam):
+        if self.hp <= 0:
+            return
+
         animasi = self.animasi[self.nm_animasi]["side"]
         list_frame = animasi['frames']
 

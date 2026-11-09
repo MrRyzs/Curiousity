@@ -18,6 +18,11 @@
         "atk": 25,
         "aspd": 0.4,
         "color": [118, 180, 255],
+        "senjata": {
+            "tipe": "pistol",
+            "range": 600,
+            "rof": 450 
+        },
         "sprite": {
             "file": "assets/test.png",
             "frame_size": [48, 48],
@@ -30,6 +35,9 @@
                 },
                 "walk": {
                     "side": {"row": 4, "count": 6, "fps": 10}
+                },
+                "attack": {
+                    "side": {"row": 7, "count": 4, "fps": 12}
                 }
             }
         }

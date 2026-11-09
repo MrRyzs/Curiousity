@@ -1,108 +1,141 @@
-import random
-import pygame
-from ui import tema
-from karakter.karakter import Karakter
-from enemies.enemy import Musuh
-from systems.assets import(
-    read_json,
-    load_frame,
-    load_animasi
-)
+# import random
+# import pygame
+# from ui import tema
+# from karakter.karakter import Karakter
+# from enemies.enemy import Musuh
+# from senjata.pistol import Pistol
+# from systems.assets import(
+#     read_json,
+#     load_frame,
+#     load_animasi
+# )
 
-# Setup
-pygame.init()
-width = 1200
-height = 675
-screen = pygame.display.set_mode((width, height))
+from game import Game
 
-# Ambil data player & musuh
-char = read_json("data/characters.json")
-enemy = read_json("data/enemies.json")
-select_char = "test"
-select_enemy = "slime"
-player = Karakter(char[select_char], (width/2, height/2))
-musuh = Musuh(enemy[select_enemy], (width/2, height/2))
+if __name__ == "__main__":
+    game = Game()
+    game.running()
 
-# Animasi Player & Musuh
-# player_animation = load_frame()
-# enemy_animation = load_frame("assets/slime.png", (32,32), 0, 4)
 
-# Set Timer
-time = pygame.time.Clock()
-waktu_animasi = 0
-fps_animasi = 6
+# # Setup
+# pygame.init()
+# width = 1200
+# height = 675
+# screen = pygame.display.set_mode((width, height))
 
-# Temporary
-# enemy_pos = pygame.Vector2(150, 150)
-run = True
+# # Ambil data player & musuh
+# char = read_json("data/characters.json")
+# enemy = read_json("data/enemies.json")
+# select_char = "test"
+# select_enemy = "slime"
+# player = Karakter(char[select_char], (width/2, height/2))
+# musuh = Musuh(enemy[select_enemy], (150, 150))
 
-# Looping Game
-while run:
-    timer = min(time.tick(60) / 1000, 0.05)
+# aim_mode = "auto"
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                run = False
+# data_weap = char[select_char]["senjata"]
+# if data_weap["tipe"] == "pistol":
+#     weap = Pistol(
+#         damage=player.atk,
+#         dur= player.aspd,
+#         range=data_weap["range"],
+#         speed=data_weap["rof"]
+#     )
+# else:
+#     raise ValueError(f"Tipe senjata belum didukung : {data_weap['tipe']}")
 
-    if not run:
-        break
+# # pistol = Pistol(
+# #     damage=player.atk,
+# #     dur= player.aspd,
+# #     range=600,
+# #     speed=450
+# # ) 
 
-    button = pygame.key.get_pressed()
+# # Animasi Player & Musuh
+# # player_animation = load_frame()
+# # enemy_animation = load_frame("assets/slime.png", (32,32), 0, 4)
 
-    musuh.update(timer, player)
-    player.update(timer,button)
-    musuh.serang(timer, player)
+# # Set Timer
+# time = pygame.time.Clock()
+# waktu_animasi = 0
+# fps_animasi = 6
 
-    cam = player.pos - pygame.Vector2(width/2,height/2)
+# # Temporary
+# # enemy_pos = pygame.Vector2(150, 150)
+# run = True
+
+# # Looping Game
+# while run:
+#     timer = min(time.tick(60) / 1000, 0.05)
+
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             run = False
+#         elif event.type == pygame.KEYDOWN:
+#             if event.key == pygame.K_ESCAPE:
+#                 run = False
+
+#     if not run:
+#         break
+
+#     button = pygame.key.get_pressed()
+
+#     player.update(timer,button)
+#     musuh.update(timer, player)
+#     musuh.serang(timer, player)
+
+#     serang = weap.update(timer, player, musuh, aim_mode)   
+#     if serang:
+#         player.serang()
+
+#     cam = player.pos - pygame.Vector2(width/2,height/2)
     
-    # Update Animasi
-    waktu_animasi += timer
-    # index_frame = (int(waktu_animasi * fps_animasi) % len(enemy_animation))
-    # enemy_img = enemy_animation[index_frame]
+#     # Update Animasi
+#     waktu_animasi += timer
+#     # index_frame = (int(waktu_animasi * fps_animasi) % len(enemy_animation))
+#     # enemy_img = enemy_animation[index_frame]
 
-    # UI
-    screen.fill(tema.LATAR)
-    font_info = pygame.font.Font(None, 28)
-    musuh.gambar(screen, cam)
-    player.gambar(screen, cam)
+#     # UI
+#     screen.fill(tema.LATAR)
+#     font_info = pygame.font.Font(None, 28)
+#     musuh.gambar(screen, cam)
+#     player.gambar(screen, cam)
+#     weap.gambar(screen, cam)
 
-    # enemy_cur_pos = enemy_pos - cam
-    # enemy_area = enemy_img.get_rect(
-    #     center = (
-    #         round(enemy_cur_pos.x),
-    #         round(enemy_cur_pos.y)
-    #     )
-    # )
+#     # enemy_cur_pos = enemy_pos - cam
+#     # enemy_area = enemy_img.get_rect(
+#     #     center = (
+#     #         round(enemy_cur_pos.x),
+#     #         round(enemy_cur_pos.y)
+#     #     )
+#     # )
 
-    # if enemy_area.colliderect(screen.get_rect()):
-    #     screen.blit(enemy_img,enemy_area)
+#     # if enemy_area.colliderect(screen.get_rect()):
+#     #     screen.blit(enemy_img,enemy_area)
 
-    text_hp = font_info.render(
-        f"HP: {player.hp} / {player.max_hp}",
-        True,
-        tema.TEKS,
-    )
+#     text_hp = font_info.render(
+#         f"HP: {player.hp} / {player.max_hp}",
+#         True,
+#         tema.TEKS,
+#     )
 
-    screen.blit(text_hp, (20,20))
+#     screen.blit(text_hp, (20,20))
 
-    if player.hp <= 0:
-        text_lose = font_info.render(
-            "Game Over",
-            True,
-            tema.DANGER,
-        )
+#     if player.hp <= 0:
+#         text_lose = font_info.render(
+#             "Game Over",
+#             True,
+#             tema.DANGER,
+#         )
 
-        screen.blit(
-            text_lose,
-            text_lose.get_rect(center=(
-                width//2,
-                height//2 + 70,
-            ))
-        )
+#         screen.blit(
+#             text_lose,
+#             text_lose.get_rect(center=(
+#                 width//2,
+#                 height//2 + 70,
+#             ))
+#         )
 
-    pygame.display.flip()
+#     pygame.display.flip()
 
-pygame.quit()
+# pygame.quit()
