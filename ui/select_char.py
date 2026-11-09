@@ -41,7 +41,7 @@ class PilihKarakter(Menu):
             f"HP {data['max_hp']}   "
             f"SPD {data['spd']}   "
             f"ATK {data['atk']}   "
-            f"Jeda {data['aspd']} dtk"
+            f"ASPD {data['aspd']} dtk"
         )
 
         label = self.font_select.render(text, True, tema.TEKS_REDUP)

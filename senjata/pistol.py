@@ -10,43 +10,58 @@ class Pistol:
         self.timer = 0
         self.list_peluru = []
 
-    def update(self, timer, owner, target, mode):
+    def update(self, timer, player, list_musuh, mode):
         self.timer = max(0, self.timer - timer)
 
         # Movement Peluru
         for peluru in self.list_peluru[:]:
             peluru.update(timer)
 
-            if target.hp > 0 and peluru.hit(target):
-                target.terserang(peluru.damage)
-                self.list_peluru.remove(peluru)
+            hit_musuh = False
 
-            elif peluru.jarak <= 0:
+            for musuh in list_musuh:
+                if musuh.hp <= 0:
+                    continue
+
+                if peluru.hit(musuh):
+                    musuh.terserang(peluru.damage)
+                    hit_musuh = True
+                    break
+
+            if hit_musuh or peluru.jarak <= 0:
                 self.list_peluru.remove(peluru)
 
         # Atk Cooldown dan Logic jika user kalah
-        if owner.hp <= 0 or self.timer > 0:
+        if player.hp <= 0 or self.timer > 0:
             return
 
         if mode == "auto":
-            if target.hp <= 0:
-                return
+            # Set auto lock
+            target = None
+            closest_musuh = float("inf")
+
+            for musuh in list_musuh:
+                if musuh.hp <= 0:
+                    continue
             
-            diff = target.pos - owner.pos
+                diff = player.pos.distance_to(musuh.pos)
 
-            if diff.length() > self.range:
+                if diff <= self.range and diff < closest_musuh:
+                    target = musuh
+                    closest_musuh = diff
+
+            if target is None:
                 return
 
-            arah = diff
-
+            arah = target.pos - player.pos
         else:
-            arah = owner.hadap_ke.copy()
+            arah = player.hadap_ke.copy()
 
         if arah.length_squared() == 0:
             return
 
         new_peluru = Peluru(
-            owner.pos,
+            player.pos,
             arah,
             self.damage,
             self.speed,
