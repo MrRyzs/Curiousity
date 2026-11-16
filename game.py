@@ -75,10 +75,7 @@ class Game:
         )
 
         self.player = Karakter(data, (self.lebar/2, self.tinggi/2))
-        self.list_musuh = [
-            # Musuh(self.data_musuh[self.select_musuh], spawn) 
-            # for spawn in spawn_musuh 
-        ]
+        self.list_musuh = []
 
         data_weap = data["senjata"]
 
@@ -215,10 +212,6 @@ class Game:
                             self.condition = "main_menu"
                     elif event.key in (pygame.K_ESCAPE, pygame.K_p):
                         self.condition = "playing"
-                    
-                
-                # if event.key == pygame.K_ESCAPE:
-                #     self.run = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if(
@@ -349,22 +342,6 @@ class Game:
         )
 
         self.layar.blit(spawn_txt, (20,115))
-
-        # hp_txt = self.font_info.render(
-        #     f"HP: {self.player.hp}/{self.player.max_hp}",
-        #     True,
-        #     tema.TEKS
-        # )
-
-        # mode_txt = self.font_info.render(
-        #     f"Mode: {self.game_mode.upper()} | "
-        #     f"Aim : {self.aim_mode.upper()}",
-        #     True,
-        #     tema.TEKS_REDUP
-        # )
-
-        # self.layar.blit(hp_txt, (20,20))
-        # self.layar.blit(mode_txt, (20,50))
 
         if self.player.hp <= 0:
             lose_txt = self.font_info.render(
