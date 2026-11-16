@@ -2,6 +2,11 @@ import pygame
 from systems.assets import load_animasi
 
 class Karakter:
+
+    char = {
+        
+    }
+
     def __init__(self,data,posisi_awal):
         # Data Player
         self.nama = data["name"]
